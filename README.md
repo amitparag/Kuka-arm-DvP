@@ -12,7 +12,7 @@ Code for Differential Value Programming (DVP) implementation and example on the 
 Install PyTorch, Crocoddyl and Pinocchio first if you don't have them already installed, then 
 
 ```
-git clone https://github.com/skleff1994/arm.git
+git clone https://gitlab.com/aparag/kuka-arm-dvp.git
 ``` 
 Then `cd exp_arm/` and
 - First generate a test set by running `python datagen.py`
