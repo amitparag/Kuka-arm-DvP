@@ -1,0 +1,51 @@
+# OCP parameters for static end-effector pose reaching task
+
+# General
+dt: 0.03                               # OCP integration step 
+N_h: 200                               # Horizon length in nodes
+maxiter: 1000                          # Max number of iterations in DDP solver
+q0: [0.1, 0.7, 0., 0.7, -0.5, 1.5, 0.] # Initial robot joint configuration
+dq0: [0.,0.,0.,0.,0.,0.,0.]            # Initial robot joint velocity
+
+# Cost function composition (a.k.a which terms will be actually used in the OCP)
+WHICH_COSTS: ['translation', 'ctrlReg', 'stateReg', 'stateLim'] # ctrlLim, velocity, placement, etc.
+
+# Cost function weights and activations
+ # 'stateReg' : state regularization 
+stateRegWeights: [0., 0., 0., 0., 0., 0., 0., 1., 2., 1., 1., 1., 1., 1.]
+stateRegWeight: .2 
+stateRegWeightTerminal: .2 
+
+ # 'ctrlReg' : torque regularization 
+ctrlRegWeights: [1., 1., 1., 1., 1., 1., 1.]
+ctrlRegWeight: 0.01
+
+ # 'stateLim' : state limits
+stateLimWeights: [1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.]
+stateLimWeight: 0.1
+stateLimWeightTerminal: 0.1
+
+ # 'ctrlLim' : torque limits
+ctrl_lim: [320, 320, 176, 176, 110, 40, 40]
+ctrlLimWeight: 10.
+
+ # 'translation' : end-effector frame translation 
+p_des: [-0.3, -0.4, 0.5]  
+frameTranslationWeights: [1., 1., 1.]
+frameTranslationWeight: 2.
+frameTranslationWeightTerminal: 2.
+
+ # 'placement' : end-effector frame placement (translation + rotation)
+p_des: [-0.3, -0.4, 0.5] 
+framePlacementWeights:  [1., 1., 1., 1., 1., 1.]
+framePlacementWeight: 1.5
+framePlacementWeightTerminal: 1.5 
+
+ # 'velocity' : end-effector frame velocity (translation + rotation)
+v_des: [0., 0., 0.]
+frameVelocityWeights:  [1., 1., 1., 1., 1., 1.]
+frameVelocityWeight: .01
+frameVelocityWeightTerminal: .01
+
+# armature
+armature: [.1, .1, .1, .1, .1, .1, .01]

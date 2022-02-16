@@ -1,0 +1,40 @@
+# Static pose reaching task
+# Used for MPC simulations with and without torque tracking
+
+# OCP
+dt: 0.01         # OCP integration step 
+N_h: 200         # Horizon length in nodes
+maxiter: 1000    # Max number of iterations in DDP
+# Initial robot state
+q0: [0.1, 0.7, 0., 0.7, -0.5, 1.5, 0.]
+dq0: [0.,0.,0.,0.,0.,0.,0.]
+
+# State regularization 
+stateRegWeights: [0., 0., 0., 0., 0., 0. ,0., 6., 4., 6., 8., 3., 4., 3.]
+stateRegWeight: 0.001 
+stateRegWeightTerminal: 0.001 
+# Torque regularization
+ctrlRegWeights: [2., 3., 2., 3., 2., 3., 1.]
+ctrlRegWeight: 0.00001
+
+# State limits
+stateLimWeights: [1., 1., 1., 1., 1., 1., 1., 5., 5., 5., 5., 5., 5., 5.]
+stateLimWeight: 0.02
+stateLimWeightTerminal: 0.02
+# # Torque limits
+# ctrl_lim: [320, 320, 176, 176, 110, 40, 40]
+# ctrlLimWeight: 0.1
+
+# Frame translation 
+p_des: [-0.3, -0.4, 0.5]  
+frameTranslationWeights: [3., 3., 2.8]
+frameTranslationWeight: 0.12
+frameTranslationWeightTerminal: 0.12
+# # Frame velocity
+# frameVelocityWeights:  [1., 1., 1., 0., 0., 0.]
+# frameVelocityWeight: 1.
+# frameVelocityWeightTerminal: 1. 
+
+
+# armature
+armature: [.1, .1, .1, .1, .1, .1, .01]
